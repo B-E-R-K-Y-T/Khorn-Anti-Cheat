@@ -2,6 +2,8 @@ from tools.directory_worker import *
 
 
 def listen():
+    print('<KHORN> Blood, for the God of blood! Skulls for the throne of skulls!')
+
     DirectorySaver(get_my_directory(__file__)).save_directory(FileSaver())
 
     while True:
