@@ -8,9 +8,9 @@ from config import IGNORE, SEPARATOR_DIR
 
 
 def is_ignore(root: str):
-    for path in IGNORE:
+    for ignore_path in IGNORE:
         for sub_root in root.split(SEPARATOR_DIR):
-            if sub_root == path:
+            if sub_root == ignore_path:
                 return True
 
     return False
@@ -49,13 +49,13 @@ class DirectorySaver:
     def __init__(self, path_directory=get_my_directory()):
         self.directory = DirectoryReader(path_directory)
 
-
     def save_directory(self, save_mode):
         save_mode(crypt_directory(self.directory))
 
 
 class FileSaver:
-    def __init__(self): ...
+    def __init__(self):
+        ...
 
     def __call__(self, directory: dict):
         with open('Khorn_data.txt', mode='w') as file:
@@ -108,8 +108,10 @@ def crypt_directory(directory: DirectoryReader):
         try:
             for line in file:
                 line = replace_dict({'\n': '', '\t': ''}, line)
+
                 if line.isspace():
                     continue
+
                 res[name_file] += c.crypt_mode(line)
         except UnicodeDecodeError as _:
             pass
@@ -118,7 +120,6 @@ def crypt_directory(directory: DirectoryReader):
 
 
 if __name__ == '__main__':
-
     # d = DirectoryReader(path_directory='/home/berkyt/PycharmProjects/Khorn')
     # print(d.get_directory_as_dict())
     # for _, i in d.get_files():
