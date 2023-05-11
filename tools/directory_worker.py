@@ -4,10 +4,7 @@ import tools.crypt as crypt
 from codecs import open
 from tools.parser import ParserCryptFile, replace_dict, remove_space
 from tools.exceptions import InvalidDir
-from config import IGNORE
-
-
-SEPARATOR_DIR = '/'
+from config import IGNORE, SEPARATOR_DIR
 
 
 def is_ignore(root: str):
@@ -77,6 +74,8 @@ class DirectoryInspector:
         origin_directory = self.parser.get_crypt_directory()
 
         for name_file, target_file in self.directory.get_files():
+            print(f'<KHORN> CHECK FILE: {name_file}...')
+
             if is_ignore(name_file):
                 continue
 
@@ -88,9 +87,9 @@ class DirectoryInspector:
                     continue
 
                 if old != new:
-                    raise InvalidDir(f'Your directory invalid! FILE: {name_file}')
+                    raise InvalidDir(f'<KHORN> YOUR DIRECTORY INVALID! FILE: {name_file}')
                 else:
-                    print(f'<KHORN> {name_file=} IT\'S OK!')
+                    print(f'<KHORN> IT\'S OK!')
             except UnicodeDecodeError as _:
                 continue
 

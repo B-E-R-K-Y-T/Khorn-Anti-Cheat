@@ -3,3 +3,4 @@ IGNORE = [
     'Khorn_data.txt',
     '.idea'
 ]
+SEPARATOR_DIR = '/'
