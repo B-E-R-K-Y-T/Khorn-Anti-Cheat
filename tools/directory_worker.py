@@ -67,7 +67,10 @@ class FileSaver:
 class DirectoryInspector:
     def __init__(self, path_directory=get_my_directory(), path_data='Khorn_data.txt'):
         self.directory = DirectoryReader(path_directory)
-        self.parser = ParserCryptFile(path_data)
+        try:
+            self.parser = ParserCryptFile(path_data)
+        except FileNotFoundError as _:
+            raise FileNotFoundError(f'<KHORN> FILE {path_data} NOT FOUND! YOU BANNED!')
         self.crypt = crypt.Crypt()
 
     def check_valid_file(self):
