@@ -58,6 +58,8 @@ class FileSaver:
         ...
 
     def __call__(self, directory: dict):
+        assert open('Khorn_data.txt'), FileNotFoundError
+
         with open('Khorn_data.txt', mode='w') as file:
             for name, text_file in directory.items():
                 if not is_ignore(name):
