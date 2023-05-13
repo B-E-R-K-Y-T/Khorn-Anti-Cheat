@@ -13,7 +13,7 @@ DB = Database()
 
 def add_ignore_name_to_db():
     DB.save_ignore_item(txt.get())
-    combo['values'] = list(DB.get_ignore_items())
+    combo['values'] = DB.get_ignore_items()
 
 
 def listen():
@@ -53,7 +53,7 @@ btn_k = Button(window, text="KHORN", command=init_khorn)
 btn_k.grid(column=4, row=0)
 
 combo = Combobox(window)
-combo['values'] = list(DB.get_ignore_items())
+combo['values'] = DB.get_ignore_items()
 # combo.current(1)  # установите вариант по умолчанию
 combo.grid(column=0, row=0)
 

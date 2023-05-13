@@ -27,7 +27,7 @@ VALUES (?);
     def get_ignore_items(self):
         res = self.cur.execute('SELECT * FROM Ignore;')
 
-        return res.fetchall()
+        return list(res.fetchall())
 
     def check_exist_table(self, name_table: str):
         data = (name_table, )
