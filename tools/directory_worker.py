@@ -6,12 +6,7 @@ from codecs import open
 from tools.parser import ParserCryptFile, replace_dict, remove_space
 from tools.exceptions import InvalidDir
 from config import SEPARATOR_DIR, PATH_TO_DATA_TXT, IGNORE
-
-
-class OperationSystem:
-    LINUX = 'linux'
-    WINDOWS_32 = 'win32'
-    WINDOWS_64 = 'win64'
+from tools.operation_system import OperationSystem
 
 
 def is_ignore(root: str):
