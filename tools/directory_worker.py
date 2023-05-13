@@ -54,6 +54,9 @@ def _crypt_directory(directory):
     c = crypt.Crypt()
 
     for name_file, file in directory.get_files():
+        if _is_ignore(name_file):
+            continue
+
         print(f'<KHORN> SET TARGET TO FILE: {name_file}')
         res[name_file] = ''
 
@@ -124,10 +127,10 @@ class DirectoryInspector:
         origin_directory = self.parser.get_crypt_directory()
 
         for name_file, target_file in self.directory.get_files():
-            print(f'<KHORN> CHECK FILE: {name_file}...')
-
             if _is_ignore(name_file):
                 continue
+
+            print(f'<KHORN> CHECK FILE: {name_file}...')
 
             try:
                 old = self.crypt.decrypt_mode(origin_directory.get(name_file))

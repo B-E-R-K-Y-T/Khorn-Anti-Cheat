@@ -14,4 +14,4 @@ else:
     SEPARATOR_DIR = '\\'
 
 DATABASE_NAME = 'data/khornignore.db'
-PATH_TO_DATA_TXT = 'khornignore.txt'
+PATH_TO_DATA_TXT = 'khorn_targets.txt'
