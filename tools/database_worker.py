@@ -34,7 +34,6 @@ DELETE FROM Ignore WHERE Item = ?;
     def get_ignore_items(self):
         res_execute = self.cur.execute('SELECT * FROM Ignore;')
 
-        self.con.commit()
         res = []
 
         for item in res_execute.fetchall():
