@@ -12,7 +12,7 @@ from tools.database_worker import Database
 DATABASE = Database()
 
 
-def is_ignore(root: str):
+def _is_ignore(root: str):
     for ignore_path in DATABASE.get_ignore_items():
         for sub_root in root.split(SEPARATOR_DIR):
             if sub_root == ignore_path:
@@ -21,7 +21,7 @@ def is_ignore(root: str):
     return False
 
 
-def get_convert_str_to_path_list(path):
+def _get_convert_str_to_path_list(path):
     path.pop(-1)
     path = [line for line in path if line]
     res = ''.join([SEPARATOR_DIR + line for line in path])
@@ -29,14 +29,14 @@ def get_convert_str_to_path_list(path):
     return res
 
 
-def split_path_for_os(path):
+def _split_path_for_os(path):
     if platform == OperationSystem.LINUX:
         return path.split('/')
     else:
         return path.split('\\')
 
 
-def format_path_to_os(path):
+def _format_path_to_os(path):
     if platform == OperationSystem.LINUX:
         return path
     else:
@@ -44,11 +44,11 @@ def format_path_to_os(path):
 
 
 def get_my_directory(path=__file__):
-    path = split_path_for_os(path)
-    return get_convert_str_to_path_list(path)
+    path = _split_path_for_os(path)
+    return _get_convert_str_to_path_list(path)
 
 
-def crypt_directory(directory):
+def _crypt_directory(directory):
     res = {}
 
     c = crypt.Crypt()
@@ -79,7 +79,7 @@ class DirectoryReader:
         directory = {}
 
         for root, _, files in os.walk(self.path_directory):
-            if files and not is_ignore(root):
+            if files and not _is_ignore(root):
                 directory[root] = files
 
         return directory
@@ -97,7 +97,7 @@ class DirectorySaver:
         self.directory = DirectoryReader(path_directory)
 
     def save_directory(self, save_mode):
-        save_mode(crypt_directory(self.directory))
+        save_mode(_crypt_directory(self.directory))
 
 
 class FileSaver:
@@ -107,7 +107,7 @@ class FileSaver:
     def __call__(self, directory: dict):
         with open(PATH_TO_DATA_TXT, mode='w', encoding='utf=8') as file:
             for name, text_file in directory.items():
-                if not is_ignore(name):
+                if not _is_ignore(name):
                     file.write(f'{name=}=[{text_file}];')
 
 
@@ -126,7 +126,7 @@ class DirectoryInspector:
         for name_file, target_file in self.directory.get_files():
             print(f'<KHORN> CHECK FILE: {name_file}...')
 
-            if is_ignore(name_file):
+            if _is_ignore(name_file):
                 continue
 
             try:
@@ -143,6 +143,14 @@ class DirectoryInspector:
             except UnicodeDecodeError as _:
                 continue
 
+
+__all__ = (
+    DirectoryInspector.__name__,
+    FileSaver.__name__,
+    DirectorySaver.__name__,
+    DirectoryReader.__name__,
+    get_my_directory.__name__,
+)
 
 if __name__ == '__main__':
     # d = DirectoryReader(path_directory='/home/berkyt/PycharmProjects/Khorn')
