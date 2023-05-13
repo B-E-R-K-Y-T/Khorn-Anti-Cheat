@@ -2,10 +2,11 @@ import threading
 
 from tkinter.ttk import Combobox
 from tkinter import *
+from tkinter import messagebox
 from config import IGNORE
 from tools.database_worker import Database
 from tools.directory_worker import DirectorySaver, get_my_directory, FileSaver, DirectoryInspector
-
+from tools.exceptions import InvalidDir
 
 WINDOW_IGNORE = IGNORE.copy()
 DB = Database()
@@ -23,7 +24,11 @@ def listen():
 
     while True:
         d_l = DirectoryInspector(get_my_directory(__file__))
-        d_l.check_valid_file()
+        try:
+            d_l.check_valid_file()
+        except InvalidDir as ex:
+            messagebox.showinfo('Error', ex)
+            exit()
 
 
 def init_khorn():
