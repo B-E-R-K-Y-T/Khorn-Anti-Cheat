@@ -5,7 +5,7 @@ from sys import platform
 from codecs import open
 from tools.parser import ParserCryptFile, replace_dict, remove_space
 from tools.exceptions import InvalidDir
-from config import SEPARATOR_DIR, PATH_TO_DATA_TXT, IGNORE
+from config import SEPARATOR_DIR, PATH_TO_DATA_TXT
 from tools.operation_system import OperationSystem
 from tools.database_worker import Database
 
@@ -15,7 +15,6 @@ DATABASE = Database()
 def is_ignore(root: str):
     for ignore_path in DATABASE.get_ignore_items():
         for sub_root in root.split(SEPARATOR_DIR):
-            # print(sub_root, ignore_path)
             if sub_root == ignore_path:
                 return True
 
