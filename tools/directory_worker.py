@@ -1,6 +1,7 @@
 import os
 import tools.crypt as crypt
 
+from sys import platform
 from codecs import open
 from tools.parser import ParserCryptFile, replace_dict, remove_space
 from tools.exceptions import InvalidDir
@@ -8,8 +9,9 @@ from config import SEPARATOR_DIR, PATH_TO_DATA_TXT, IGNORE
 
 
 class OperationSystem:
-    LINUX = 'Linux'
-    WINDOWS = 'Windows'
+    LINUX = 'linux'
+    WINDOWS_32 = 'win32'
+    WINDOWS_64 = 'win64'
 
 
 def is_ignore(root: str):
@@ -22,7 +24,7 @@ def is_ignore(root: str):
 
 
 def get_my_directory(path=__file__):
-    os_name = os.uname().sysname
+    os_name = platform
 
     if os_name == OperationSystem.LINUX:
         path = path.split('/')
