@@ -78,7 +78,6 @@ btn.grid(column=3, row=0)
 btn_k = Button(window, text="KHORN", command=init_khorn)
 btn_k.grid(column=4, row=0)
 
-
 lbl_d = Label(window, text="Delete ignore: ")
 lbl_d.grid(column=1, row=1)
 txt_d = Entry(window, width=10)
