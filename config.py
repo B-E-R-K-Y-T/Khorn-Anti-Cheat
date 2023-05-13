@@ -3,7 +3,7 @@ from tools.operation_system import OperationSystem
 
 IGNORE = [
     'venv',
-    'khornignore.txt',
+    'khorn_targets.txt',
     '.idea',
     'khornignore.db'
 ]
