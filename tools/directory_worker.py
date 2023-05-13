@@ -20,7 +20,7 @@ def is_ignore(root: str):
 
 
 def get_my_directory(path=__file__):
-    path = path.split('/') if len(path.split('/')) == 1 else path.split('\\')
+    path = path.split('\\') if len(path.split('/')) == 1 else path.split('/')
     path.pop(-1)
     path = [line for line in path if line]
 
