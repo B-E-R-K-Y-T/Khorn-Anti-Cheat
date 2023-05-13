@@ -4,7 +4,7 @@ import tools.crypt as crypt
 from codecs import open
 from tools.parser import ParserCryptFile, replace_dict, remove_space
 from tools.exceptions import InvalidDir
-from config import IGNORE, SEPARATOR_DIR
+from config import IGNORE, SEPARATOR_DIR, PATH_TO_DATA_TXT
 
 
 def is_ignore(root: str):
@@ -58,7 +58,7 @@ class FileSaver:
         ...
 
     def __call__(self, directory: dict):
-        assert open('Khorn_data.txt'), FileNotFoundError
+        assert open(PATH_TO_DATA_TXT), FileNotFoundError
 
         with open('Khorn_data.txt', mode='w') as file:
             for name, text_file in directory.items():
@@ -67,7 +67,7 @@ class FileSaver:
 
 
 class DirectoryInspector:
-    def __init__(self, path_directory=get_my_directory(), path_data='Khorn_data.txt'):
+    def __init__(self, path_directory=get_my_directory(), path_data=PATH_TO_DATA_TXT):
         self.directory = DirectoryReader(path_directory)
         try:
             self.parser = ParserCryptFile(path_data)
