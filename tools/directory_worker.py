@@ -4,14 +4,16 @@ import tools.crypt as crypt
 from codecs import open
 from tools.parser import ParserCryptFile, replace_dict, remove_space
 from tools.exceptions import InvalidDir
-from config import SEPARATOR_DIR, PATH_TO_DATA_TXT
-from tools.database_worker import Database
+from config import SEPARATOR_DIR, PATH_TO_DATA_TXT, IGNORE
 
-DB = Database()
+
+class OperationSystem:
+    LINUX = 'Linux'
+    WINDOWS = 'Windows'
 
 
 def is_ignore(root: str):
-    for ignore_path in DB.get_ignore_items():
+    for ignore_path in IGNORE:
         for sub_root in root.split(SEPARATOR_DIR):
             if sub_root == ignore_path:
                 return True
@@ -20,11 +22,21 @@ def is_ignore(root: str):
 
 
 def get_my_directory(path=__file__):
-    path = path.split('\\') if len(path.split('/')) == 1 else path.split('/')
+    os_name = os.uname().sysname
+
+    if os_name == OperationSystem.LINUX:
+        path = path.split('/')
+    else:
+        path = path.split('\\')
+
     path.pop(-1)
     path = [line for line in path if line]
+    res = ''.join([SEPARATOR_DIR + line for line in path])
 
-    return ''.join([SEPARATOR_DIR + line for line in path])
+    if os_name == OperationSystem.LINUX:
+        return res
+    else:
+        return res[1:]
 
 
 class DirectoryReader:
