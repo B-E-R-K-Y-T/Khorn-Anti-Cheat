@@ -1,6 +1,9 @@
+from codecs import open
+
+
 class ParserCryptFile:
     def __init__(self, path: str):
-        self.directory = self.convert_directory_to_dict(open(path, mode='r'))
+        self.directory = self.convert_directory_to_dict(open(path, mode='r', encoding='utf=8'))
 
     def convert_directory_to_dict(self, file):
         text = file.read().split(';')
