@@ -3,12 +3,10 @@ import threading
 from tkinter.ttk import Combobox
 from tkinter import *
 from tkinter import messagebox
-from config import IGNORE
 from tools.database_worker import Database
 from tools.directory_worker import DirectorySaver, get_my_directory, FileSaver, DirectoryInspector
 from tools.exceptions import InvalidDir
 
-WINDOW_IGNORE = IGNORE.copy()
 DB = Database()
 
 
@@ -34,7 +32,6 @@ def delete_ignore_name_to_db():
     if text:
         DB.save_ignore_item(text)
         combo['values'] = DB.delete_ignore_item(text)
-
     else:
         messagebox.showerror('Error!', 'Data is empty!')
 
