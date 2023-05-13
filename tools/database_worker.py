@@ -24,8 +24,17 @@ VALUES (?);
 ''', data)
         self.con.commit()
 
+    def delete_ignore_item(self, item):
+        data = (item, )
+        self.cur.execute('''
+DELETE FROM Ignore WHERE Item = ?;
+''', data)
+        self.con.commit()
+
     def get_ignore_items(self):
         res_execute = self.cur.execute('SELECT * FROM Ignore;')
+
+        self.con.commit()
         res = []
 
         for item in res_execute.fetchall():

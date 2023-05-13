@@ -13,9 +13,28 @@ DB = Database()
 
 
 def add_ignore_name_to_db():
-    if txt.get():
-        DB.save_ignore_item(txt.get())
+    text = str(txt.get())
+
+    if text:
+        DB.save_ignore_item(text)
         combo['values'] = DB.get_ignore_items()
+    elif text in DB.get_ignore_items():
+        messagebox.showerror('Error!', 'Item already exist!')
+    else:
+        messagebox.showerror('Error!', 'Data is empty!')
+
+
+def delete_ignore_name_to_db():
+    text = str(txt_d.get())
+
+    if text not in DB.get_ignore_items():
+        messagebox.showerror('Error!', 'Item not exist!')
+        return
+
+    if text:
+        DB.save_ignore_item(text)
+        combo['values'] = DB.delete_ignore_item(text)
+
     else:
         messagebox.showerror('Error!', 'Data is empty!')
 
@@ -60,6 +79,14 @@ btn.grid(column=3, row=0)
 
 btn_k = Button(window, text="KHORN", command=init_khorn)
 btn_k.grid(column=4, row=0)
+
+
+lbl_d = Label(window, text="Delete ignore: ")
+lbl_d.grid(column=1, row=1)
+txt_d = Entry(window, width=10)
+txt_d.grid(column=2, row=1)
+btn_d = Button(window, text="Delete", command=delete_ignore_name_to_db)
+btn_d.grid(column=3, row=1)
 
 combo = Combobox(window)
 combo['values'] = DB.get_ignore_items()
