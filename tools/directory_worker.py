@@ -21,6 +21,14 @@ def is_ignore(root: str):
     return False
 
 
+def get_convert_str_to_path_list(path):
+    path.pop(-1)
+    path = [line for line in path if line]
+    res = ''.join([SEPARATOR_DIR + line for line in path])
+
+    return res
+
+
 def get_my_directory(path=__file__):
     os_name = platform
 
@@ -29,9 +37,7 @@ def get_my_directory(path=__file__):
     else:
         path = path.split('\\')
 
-    path.pop(-1)
-    path = [line for line in path if line]
-    res = ''.join([SEPARATOR_DIR + line for line in path])
+    res = get_convert_str_to_path_list(path)
 
     if os_name == OperationSystem.LINUX:
         return res
