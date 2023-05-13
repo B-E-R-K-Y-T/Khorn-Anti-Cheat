@@ -7,11 +7,15 @@ from tools.parser import ParserCryptFile, replace_dict, remove_space
 from tools.exceptions import InvalidDir
 from config import SEPARATOR_DIR, PATH_TO_DATA_TXT, IGNORE
 from tools.operation_system import OperationSystem
+from tools.database_worker import Database
+
+DATABASE = Database()
 
 
 def is_ignore(root: str):
-    for ignore_path in IGNORE:
+    for ignore_path in DATABASE.get_ignore_items():
         for sub_root in root.split(SEPARATOR_DIR):
+            # print(sub_root, ignore_path)
             if sub_root == ignore_path:
                 return True
 
@@ -70,8 +74,6 @@ class FileSaver:
         ...
 
     def __call__(self, directory: dict):
-        assert open(PATH_TO_DATA_TXT, encoding='utf=8'), FileNotFoundError
-
         with open(PATH_TO_DATA_TXT, mode='w', encoding='utf=8') as file:
             for name, text_file in directory.items():
                 if not is_ignore(name):
@@ -117,6 +119,7 @@ def crypt_directory(directory: DirectoryReader):
     c = crypt.Crypt()
 
     for name_file, file in directory.get_files():
+        print(name_file, file)
         res[name_file] = ''
 
         try:

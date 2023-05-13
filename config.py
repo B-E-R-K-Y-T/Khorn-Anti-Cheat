@@ -3,8 +3,9 @@ from tools.operation_system import OperationSystem
 
 IGNORE = [
     'venv',
-    'Khorn_data.txt',
-    '.idea'
+    'khornignore.txt',
+    '.idea',
+    'khornignore.db'
 ]
 
 if platform == OperationSystem.LINUX:
@@ -12,5 +13,5 @@ if platform == OperationSystem.LINUX:
 else:
     SEPARATOR_DIR = '\\'
 
-DATABASE_NAME = 'data/Khorn_data.db'
-PATH_TO_DATA_TXT = 'Khorn_data.txt'
+DATABASE_NAME = 'data/khornignore.db'
+PATH_TO_DATA_TXT = 'khornignore.txt'

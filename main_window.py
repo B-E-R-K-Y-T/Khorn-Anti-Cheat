@@ -13,8 +13,11 @@ DB = Database()
 
 
 def add_ignore_name_to_db():
-    DB.save_ignore_item(txt.get())
-    combo['values'] = DB.get_ignore_items()
+    if txt.get():
+        DB.save_ignore_item(txt.get())
+        combo['values'] = DB.get_ignore_items()
+    else:
+        messagebox.showerror('Error!', 'Data is empty!')
 
 
 def listen():
@@ -27,7 +30,7 @@ def listen():
         try:
             d_l.check_valid_file()
         except InvalidDir as ex:
-            messagebox.showinfo('Error', ex)
+            messagebox.showerror('Error', ex)
             exit()
 
 
