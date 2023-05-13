@@ -77,7 +77,7 @@ class FileSaver:
     def __call__(self, directory: dict):
         assert open(PATH_TO_DATA_TXT, encoding='utf=8'), FileNotFoundError
 
-        with open('Khorn_data.txt', mode='w', encoding='utf=8') as file:
+        with open(PATH_TO_DATA_TXT, mode='w', encoding='utf=8') as file:
             for name, text_file in directory.items():
                 if not is_ignore(name):
                     file.write(f'{name=}=[{text_file}];')

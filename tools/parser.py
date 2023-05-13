@@ -12,6 +12,7 @@ class ParserCryptFile:
         for item in text:
             if item:
                 name, value = self.__get_name(item), self.__get_value(item)
+                name = replace_dict({'\\\\': '\\'}, name)
                 res[name] = value
 
         return res
