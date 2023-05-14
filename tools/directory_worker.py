@@ -48,8 +48,7 @@ def _format_path_to_os(path):
 
 
 def get_my_directory(path=__file__):
-    path = _split_path_for_os(path)
-    return _get_convert_str_to_path_list(path)
+    return _format_path_to_os(_get_convert_str_to_path_list(_split_path_for_os(path)))
 
 
 def _crypt_directory(directory):
