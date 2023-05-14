@@ -52,11 +52,11 @@ def listen():
 
 def init_khorn():
     messagebox.showinfo('Khorn msg', 'Blood, for the God of blood! Skulls for the throne of skulls!')
+    
     t = threading.Thread(
     target=listen,
     daemon=True
     )
-    
     t.start()
 
 
