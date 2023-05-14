@@ -6,6 +6,7 @@ IGNORE = [
     'khorn_targets.txt',
     '.idea',
     'khornignore.db',
+    '.gitignore',
     '.git',
 ]
 
