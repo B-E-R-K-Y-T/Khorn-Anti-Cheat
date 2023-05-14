@@ -12,10 +12,11 @@ IGNORE = [
 
 INVERT_IGNORE = False
 
-if platform == OperationSystem.LINUX:
-    SEPARATOR_DIR = '/'
-else:
+if platform == OperationSystem.WINDOWS_32 or platform == OperationSystem.WINDOWS_64:
     SEPARATOR_DIR = '\\'
+    DATABASE_NAME = 'data\\khornignore.db'
+else:
+    SEPARATOR_DIR = '/'
+    DATABASE_NAME = 'data/khornignore.db'   
 
-DATABASE_NAME = 'data/khornignore.db'
 PATH_TO_DATA_TXT = 'khorn_targets.txt'
