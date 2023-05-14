@@ -16,7 +16,6 @@ def _is_ignore(root: str):
     for ignore_path in DATABASE.get_ignore_items():
         for sub_root in root.split(SEPARATOR_DIR):
             if INVERT_IGNORE:
-                print(f'{sub_root=}, {ignore_path=}' ,sub_root == ignore_path)
                 if sub_root == ignore_path:
                     return False 
             else:
