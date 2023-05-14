@@ -52,11 +52,6 @@ def listen():
 
 def init_khorn():
     messagebox.showinfo('Khorn msg', 'Blood, for the God of blood! Skulls for the throne of skulls!')
-    t = threading.Thread(
-        target=listen,
-        daemon=True
-    )
-
     t.start()
 
 
@@ -89,6 +84,12 @@ combo = Combobox(window)
 combo['values'] = DB.get_ignore_items()
 # combo.current(1)  # установите вариант по умолчанию
 combo.grid(column=0, row=0)
+
+t = threading.Thread(
+    target=listen,
+    daemon=True
+)
+
 
 if __name__ == '__main__':
     init_window()

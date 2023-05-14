@@ -5,7 +5,7 @@ from sys import platform
 from codecs import open
 from tools.parser import ParserCryptFile, replace_dict, remove_space
 from tools.exceptions import InvalidDir
-from config import SEPARATOR_DIR, PATH_TO_DATA_TXT
+from config import SEPARATOR_DIR, PATH_TO_DATA_TXT, INVERT_IGNORE
 from tools.operation_system import OperationSystem
 from tools.database_worker import Database
 
@@ -15,10 +15,14 @@ DATABASE = Database()
 def _is_ignore(root: str):
     for ignore_path in DATABASE.get_ignore_items():
         for sub_root in root.split(SEPARATOR_DIR):
-            if sub_root == ignore_path:
-                return True
+            if INVERT_IGNORE:
+                if sub_root == ignore_path:
+                    return False
+            else:
+                if sub_root == ignore_path:
+                    return True
 
-    return False
+    return True if INVERT_IGNORE else False
 
 
 def _get_convert_str_to_path_list(path):
@@ -30,17 +34,17 @@ def _get_convert_str_to_path_list(path):
 
 
 def _split_path_for_os(path):
-    if platform == OperationSystem.LINUX:
-        return path.split('/')
-    else:
+    if platform == OperationSystem.WINDOWS_32 or platform == OperationSystem.WINDOWS_64:
         return path.split('\\')
+    else:
+        return path.split('/')
 
 
 def _format_path_to_os(path):
-    if platform == OperationSystem.LINUX:
-        return path
-    else:
+    if platform == OperationSystem.WINDOWS_32 or platform == OperationSystem.WINDOWS_64:
         return path[1:]
+    else:
+        return path
 
 
 def get_my_directory(path=__file__):

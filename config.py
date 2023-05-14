@@ -8,6 +8,8 @@ IGNORE = [
     'khornignore.db'
 ]
 
+INVERT_IGNORE = False
+
 if platform == OperationSystem.LINUX:
     SEPARATOR_DIR = '/'
 else:
