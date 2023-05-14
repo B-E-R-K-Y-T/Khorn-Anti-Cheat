@@ -5,7 +5,8 @@ IGNORE = [
     'venv',
     'khorn_targets.txt',
     '.idea',
-    'khornignore.db'
+    'khornignore.db',
+    '.git',
 ]
 
 INVERT_IGNORE = False
