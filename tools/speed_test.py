@@ -1,7 +1,6 @@
 import time 
 
 
-
 def trace_speed(func):
     def wrapper(*args, **kwargs):
         start = time.time() 
