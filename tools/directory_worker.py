@@ -5,9 +5,10 @@ from sys import platform
 from codecs import open
 from tools.parser import ParserCryptFile, replace_dict, remove_space
 from tools.exceptions import InvalidDir
-from config import SEPARATOR_DIR, PATH_TO_DATA_TXT, INVERT_IGNORE
+from config import SEPARATOR_DIR, PATH_TO_DATA_TXT, INVERT_IGNORE, BEGIN_OPERATOR
 from tools.operation_system import OperationSystem
 from tools.database_worker import Database
+from tools.speed_test import trace_speed
 
 DATABASE = Database()
 
@@ -16,10 +17,10 @@ def _is_ignore(root: str):
     for ignore_path in DATABASE.get_ignore_items():
         for sub_root in root.split(SEPARATOR_DIR):
             if INVERT_IGNORE:
-                if sub_root == ignore_path:
+                if sub_root == ignore_path or sub_root.startswith('trace_speed'):
                     return False 
             else:
-                if sub_root == ignore_path:
+                if sub_root == ignore_path or sub_root.startswith('trace_speed'):
                     return True 
 
     return True if INVERT_IGNORE else False
@@ -51,6 +52,7 @@ def get_my_directory(path=__file__):
     return _format_path_to_os(_get_convert_str_to_path_list(_split_path_for_os(path)))
 
 
+@trace_speed
 def _crypt_directory(directory):
     res = {}
 
@@ -127,6 +129,7 @@ class DirectoryInspector:
             raise FileNotFoundError(f'<KHORN> FILE {path_data} NOT FOUND! YOU BANNED!')
         self.crypt = crypt.Crypt()
 
+    @trace_speed
     def check_valid_file(self):
         origin_directory = self.parser.get_crypt_directory()
 

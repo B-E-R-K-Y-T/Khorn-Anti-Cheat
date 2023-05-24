@@ -20,3 +20,4 @@ else:
     DATABASE_NAME = 'data/khornignore.db'   
 
 PATH_TO_DATA_TXT = 'khorn_targets.txt'
+BEGIN_OPERATOR = 'BEGIN'
