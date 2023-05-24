@@ -12,8 +12,9 @@ def trace_speed(func):
             f.write(f'NAME FUNCTION={func.__name__}\nTIME={end - start}')
         
         return res
-        
+
     return wrapper
+
 
 if __name__ == '__main__':
     @trace_speed
