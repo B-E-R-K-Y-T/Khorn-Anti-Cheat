@@ -1,0 +1,2 @@
+NAME FUNCTION=convert_directory_to_dict
+TIME=0.0010008811950683594

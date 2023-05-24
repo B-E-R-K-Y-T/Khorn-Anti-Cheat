@@ -1,10 +1,12 @@
 from codecs import open
+from tools.speed_test import trace_speed
 
 
 class ParserCryptFile:
     def __init__(self, path: str):
         self.directory = self.convert_directory_to_dict(open(path, mode='r', encoding='utf=8'))
-
+    
+    @trace_speed
     def convert_directory_to_dict(self, file):
         text = file.read().split(';')
         res = {}
